@@ -5,12 +5,12 @@ WORKDIR /app
 # Install dependencies
 COPY requirements.txt .
 
-# Install problematic packages separately with specific versions first
-RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org uvicorn==0.23.2
-RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org pydantic==2.0.3
+# Use a different PyPI mirror to avoid 403 errors
+RUN pip install --no-cache-dir --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn uvicorn==0.23.2
+RUN pip install --no-cache-dir --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn pydantic==2.0.3
 
 # Then install the rest of the requirements
-RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+RUN pip install --no-cache-dir --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn -r requirements.txt
 
 # Copy application code
 COPY . .

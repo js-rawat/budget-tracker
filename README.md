@@ -92,6 +92,76 @@ The SQLite database is stored in the `data` directory. When using Docker, this d
 - Change the `SECRET_KEY` in the `.env` file or Docker environment variables for production use.
 - Restrict access to the application by configuring your network properly.
 
+## Troubleshooting
+
+### Docker Build Issues
+
+If you encounter 403 Forbidden errors when building the Docker image, it may be due to temporary issues with PyPI or network restrictions. Try these alternatives:
+
+1. **Install specific package versions manually:**
+   ```
+   # Install problematic packages separately first
+   pip install uvicorn==0.23.2
+   pip install pydantic==2.0.3
+   
+   # Then install the rest of the requirements
+   pip install -r requirements.txt
+   ```
+
+2. **Use the manual setup method described above** instead of Docker until the package repository issues are resolved.
+
+3. **Try building with network adjustments:**
+   ```
+   # Add --network=host to your docker build command
+   docker build --network=host -t budget-app .
+   ```
+
+### Running Without Docker
+
+If Docker continues to be problematic, you can run the application directly:
+
+1. Create and activate a virtual environment:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+2. Install specific versions of problematic packages first:
+   ```
+   pip install uvicorn==0.23.2
+   pip install pydantic==2.0.3
+   ```
+
+3. Install the remaining dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Create the data directory:
+   ```
+   mkdir -p app/data
+   ```
+
+5. Use the provided .env file or set environment variables manually:
+   ```
+   # Option 1: Use the provided .env file (recommended)
+   # The application will automatically load variables from the .env file
+   
+   # Option 2: Set environment variables manually
+   # On Linux/macOS
+   export DATABASE_URL=sqlite:///app/data/budget.db
+   export SECRET_KEY=your_secret_key_here_change_in_production
+   
+   # On Windows
+   set DATABASE_URL=sqlite:///app/data/budget.db
+   set SECRET_KEY=your_secret_key_here_change_in_production
+   ```
+
+6. Run the application:
+   ```
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
