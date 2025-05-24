@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    
+    <!-- PicoCSS for lightweight styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
+    <!-- Alpine.js for reactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div x-data="app()" x-init="init()">
+        <!-- Navigation -->
+        <nav class="container-fluid">
+            <ul>
+                <li><strong>Budget Tracker</strong></li>
+            </ul>
+            <ul>
+                <li><a href="#" @click.prevent="currentPage = 'dashboard'" :class="{ active: currentPage === 'dashboard' }">Dashboard</a></li>
+                <li><a href="#" @click.prevent="currentPage = 'categories'" :class="{ active: currentPage === 'categories' }">Categories</a></li>
+                <li><a href="#" @click.prevent="currentPage = 'budgets'" :class="{ active: currentPage === 'budgets' }">Budgets</a></li>
+                <li><a href="#" @click.prevent="currentPage = 'transactions'" :class="{ active: currentPage === 'transactions' }">Transactions</a></li>
+                <li><a href="#" @click.prevent="currentPage = 'reports'" :class="{ active: currentPage === 'reports' }">Reports</a></li>
+                <li><a href="#" @click.prevent="currentPage = 'settings'" :class="{ active: currentPage === 'settings' }">Settings</a></li>
+                <li><a href="#" @click.prevent="logout()">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Login Form -->
+            <div x-show="!isAuthenticated" class="auth-container">
+                <article>
+                    <header>
+                        <h2>Login</h2>
+                    </header>
+                    <form @submit.prevent="login()">
+                        <div class="grid">
+                            <label for="username">
+                                Username
+                                <input type="text" id="username" x-model="loginForm.username" required>
+                            </label>
+                            <label for="password">
+                                Password
+                                <input type="password" id="password" x-model="loginForm.password" required>
+                            </label>
+                        </div>
+                        <button type="submit" :aria-busy="isLoading">Login</button>
+                        <p>
+                            <a href="#" @click.prevent="showRegisterForm = true">Don't have an account? Register</a>
+                        </p>
+                    </form>
+                </article>
+
+                <article x-show="showRegisterForm">
+                    <header>
+                        <h2>Register</h2>
+                    </header>
+                    <form @submit.prevent="register()">
+                        <div class="grid">
+                            <label for="reg-username">
+                                Username
+                                <input type="text" id="reg-username" x-model="registerForm.username" required>
+                            </label>
+                            <label for="reg-password">
+                                Password
+                                <input type="password" id="reg-password" x-model="registerForm.password" required>
+                            </label>
+                            <label for="reg-currency">
+                                Default Currency
+                                <select id="reg-currency" x-model="registerForm.default_currency">
+                                    <option value="ZAR">ZAR (South African Rand)</option>
+                                    <option value="INR">INR (Indian Rupee)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <button type="submit" :aria-busy="isLoading">Register</button>
+                        <p>
+                            <a href="#" @click.prevent="showRegisterForm = false">Already have an account? Login</a>
+                        </p>
+                    </form>
+                </article>
+            </div>
+
+            <!-- Dashboard -->
+            <div x-show="isAuthenticated && currentPage === 'dashboard'" id="dashboard-page">
+                <h2>Dashboard</h2>
+                <p>Loading dashboard content...</p>
+            </div>
+
+            <!-- Categories -->
+            <div x-show="isAuthenticated && currentPage === 'categories'" id="categories-page">
+                <h2>Categories</h2>
+                <p>Loading categories content...</p>
+            </div>
+
+            <!-- Budgets -->
+            <div x-show="isAuthenticated && currentPage === 'budgets'" id="budgets-page">
+                <h2>Budgets</h2>
+                <p>Loading budgets content...</p>
+            </div>
+
+            <!-- Transactions -->
+            <div x-show="isAuthenticated && currentPage === 'transactions'" id="transactions-page">
+                <h2>Transactions</h2>
+                <p>Loading transactions content...</p>
+            </div>
+
+            <!-- Reports -->
+            <div x-show="isAuthenticated && currentPage === 'reports'" id="reports-page">
+                <h2>Reports</h2>
+                <p>Loading reports content...</p>
+            </div>
+
+            <!-- Settings -->
+            <div x-show="isAuthenticated && currentPage === 'settings'" id="settings-page">
+                <h2>Settings</h2>
+                <p>Loading settings content...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="container">
+            <small>Budget Tracker &copy; 2025</small>
+        </footer>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/charts.js"></script>
+</body>
+</html>

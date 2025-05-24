@@ -1,0 +1,109 @@
+/* Custom styles for Budget Tracker */
+
+/* General styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #2980b9;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Auth container */
+.auth-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Navigation */
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Charts */
+.chart-container {
+    margin: 2rem 0;
+    position: relative;
+    height: 300px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+}
+
+/* Filters */
+.filters {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Delete links */
+.delete-link {
+    color: var(--danger-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+}
+
+/* Loading indicator */
+[aria-busy="true"] {
+    cursor: wait;
+}
+
+/* Modal adjustments */
+dialog article {
+    max-width: 100%;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    margin-bottom: 1rem;
+}
+
+/* Progress bars */
+progress {
+    width: 100%;
+    height: 1rem;
+}
+
+/* Currency formatting */
+.currency {
+    font-weight: bold;
+}
+
+.income {
+    color: var(--secondary-color);
+}
+
+.expense {
+    color: var(--danger-color);
+}
