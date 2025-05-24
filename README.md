@@ -129,7 +129,7 @@ If Docker continues to be problematic, you can run the application directly:
 2. Install specific versions of problematic packages first:
    ```
    pip install uvicorn==0.23.2
-   pip install pydantic==2.0.3
+   pip install pydantic==1.10.8
    ```
 
 3. Install the remaining dependencies:
